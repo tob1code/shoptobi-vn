@@ -1,4 +1,4 @@
-# Shoptoby Website
+# tob1shop
 
 This is a frontend site that connects to the ShopClone V6 API from [cmsnt.co](https://cmsnt.co/).
 
