@@ -1,10 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-  <title>ShopClone V6</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopClone V6 - CMSNT.CO</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+    }
+    header {
+      background-color: #1c1c1c;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .product {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .product h3 {
+      margin-top: 0;
+    }
+    .buy-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .buy-btn:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to ShopClone V6</h1>
-  <p>API powered by CMSNT.CO</p>
+  <header>
+    <h1>ShopClone V6 - CMSNT.CO</h1>
+    <p>Bán tài khoản, code, key tự động</p>
+  </header>
+
+  <section class="products" id="productList">
+    <!-- Dữ liệu sản phẩm từ API sẽ được render ở đây -->
+  </section>
+
+  <script>
+    const API_KEY = 'YOUR_API_KEY'; // Nhập API Key từ CMSNT.CO
+    const API_URL = 'https://domaincuaban.com/api/products'; // URL API
+
+    async function fetchProducts() {
+      try {
+        const res = await fetch(API_URL + `?apikey=${API_KEY}`);
+        const data = await res.json();
+
+        const container = document.getElementById('productList');
+        container.innerHTML = '';
+
+        data.data.forEach(product => {
+          const item = document.createElement('div');
+          item.className = 'product';
+          item.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Giá: ${product.price} đ</p>
+            <p>Hiện có: ${product.soluong} tài khoản</p>
+            <button class="buy-btn" onclick="buy(${product.id})">Mua ngay</button>
+          `;
+          container.appendChild(item);
+        });
+      } catch (err) {
+        document.getElementById('productList').innerHTML = '<p>Lỗi khi tải dữ liệu. Kiểm tra API key và domain.</p>';
+      }
+    }
+
+    function buy(productId) {
+      alert('Chức năng mua chưa được tích hợp trong bản demo.');
+    }
+
+    fetchProducts();
+  </script>
 </body>
 </html>
